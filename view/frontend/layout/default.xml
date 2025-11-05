@@ -8,7 +8,7 @@
             <block name="minicart.content" as="content" template="MageOS_AlpineMinicart::cart/minicart/content.phtml"/>
         </referenceBlock>
 
-        <referenceContainer name="before.body.end">
+        <referenceContainer name="alpine-js.component">
             <block
                 name="alpine-js.component.minicart"
                 template="MageOS_AlpineMinicart::script/component/minicart-component.phtml"
