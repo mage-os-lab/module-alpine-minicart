@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
+    <update handle="loki_base"/>
+
+    <body>
+        <referenceBlock name="minicart" template="MageOS_AlpineMinicart::cart/minicart.phtml">
+            <block name="minicart.content" as="content" template="MageOS_AlpineMinicart::cart/minicart/content.phtml"/>
+        </referenceBlock>
+
+        <referenceContainer name="before.body.end">
+            <block
+                name="alpine-js.component.minicart"
+                template="MageOS_AlpineMinicart::script/component/minicart-component.phtml"
+            />
+        </referenceContainer>
+    </body>
+</page>

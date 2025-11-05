@@ -1,0 +1,37 @@
+<?php
+declare(strict_types=1);
+
+use Magento\Checkout\Block\Cart\Sidebar;
+use Magento\Framework\Escaper;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
+
+/** @var Sidebar $block */
+/** @var Escaper $escaper */
+/** @var SecureHtmlRenderer $secureRenderer */
+?>
+
+<div class="minicart-wrapper" x-data="LumaMiniCart">
+    <a
+        class="action showcart"
+        href="<?= $escaper->escapeUrl($block->getShoppingCartUrl()) ?>"
+        @click.prevent="toggleContentVisible"
+    >
+        <span class="text"><?= $block->escapeHtml(__('My Cart')) ?></span>
+        <span class="counter qty" :class="qtyClass">
+            <span class="counter-number" x-html="getCartSummaryCount"></span>
+            <span class="counter-label"></span>
+        </span>
+    </a>
+    <div class="block block-minicart" x-cloak x-show="contentVisible">
+        <div id="minicart-content-wrapper">
+            <?= $block->getChildHtml('content') ?>
+        </div>
+        <?= $block->getChildHtml('minicart.addons') ?>
+    </div>
+</div>
+
+<style>
+    .minicart-wrapper .block-minicart {
+        display: block; // @todo: Move this to LESS
+    }
+</style>

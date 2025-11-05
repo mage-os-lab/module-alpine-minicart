@@ -1,0 +1,20 @@
+{
+  "name": "mageos/module-alpine-minicart",
+  "version": "1.0.0",
+  "description": "An Alpine.js implementation of the minicart",
+  "type": "magento2-module",
+  "require": {
+    "magento/framework": "^103.0"
+  },
+  "license": [
+    "OSL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "MageOS\\AlpineMinicart\\": ""
+    }
+  }
+}
