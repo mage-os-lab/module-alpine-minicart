@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
+use Magento\Framework\View\Helper\SecureHtmlRenderer;
 
 /** @var Template $block */
 /** @var Escaper $escaper */
-?>
-<script>
+/** @var SecureHtmlRenderer $secureRenderer */
+
+$script = <<<SCRIPT
     document.addEventListener('alpine:init', () => {
         Alpine.data('LumaMiniCart', () => ({
             cart: {},
@@ -15,7 +17,7 @@ use Magento\Framework\View\Element\Template;
             contentVisible: false,
             init() {
                 Alpine.effect(() => {
-                    this.cart = Alpine.store('LokiLocalStorage').get('cart');
+                    this.cart = Alpine.store('LocalStorage').get('cart');
                 });
             },
             toggleContentVisible() {
@@ -30,18 +32,18 @@ use Magento\Framework\View\Element\Template;
                 return this.cart.summary_count > 0 ? '' : 'empty';
             },
             proceedToCheckout() {
-                window.location = '<?= /* @noEscape */ $block->getUrl(
+                window.location = '{$block->getUrl(
                     'checkout'
-                ) ?>';
+                )}';
             },
             toggleCartItemButton() {
-                const cartItemOriginalQty = parseInt(this.$el.getAttribute('data-cart-item-qty'));
-                const cartItemNewQty = parseInt(this.$el.value);
-                const cartItemButton = this.$el.parentNode.querySelector('button');
+                const cartItemOriginalQty = parseInt(this.\$el.getAttribute('data-cart-item-qty'));
+                const cartItemNewQty = parseInt(this.\$el.value);
+                const cartItemButton = this.\$el.parentNode.querySelector('button');
                 cartItemButton.style.display = (cartItemNewQty !== cartItemOriginalQty) ? 'inline-block' : 'none';
             },
             updateCartItemQty() {
-                const cartItemId = this.$el.getAttribute('data-cart-item-id');
+                const cartItemId = this.\$el.getAttribute('data-cart-item-id');
                 const cartItemInput = document.getElementById('cart-item-' + cartItemId + '-qty');
                 const cartItemQty = parseInt(cartItemInput.value);
                 const cartItem = this.cart.items.find((item) => item.item_id === cartItemId);
@@ -51,9 +53,9 @@ use Magento\Framework\View\Element\Template;
                     return;
                 }
 
-                const ajaxUpdateUrl = '<?= /* @noEscape */ $block->getUrl(
+                const ajaxUpdateUrl = '{$block->getUrl(
                     'checkout/sidebar/updateItemQty'
-                ) ?>';
+                )}';
 
                 this.loading = true;
                 fetch(ajaxUpdateUrl, {
@@ -70,12 +72,12 @@ use Magento\Framework\View\Element\Template;
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            Alpine.store('LokiLocalStorage').refresh('cart,messages', true);
+                            Alpine.store('LocalStorage').refresh('cart,messages', true);
                         }
 
-                        Alpine.store('LokiMessageStore').addNoticeMessage('<?= $escaper->escapeHtml(
+                        Alpine.store('Message').addNoticeMessage('{$escaper->escapeHtml(
                             __('Updated quantity')
-                        ) ?>');
+                        )}');
 
                         this.loading = false;
                     });
@@ -91,11 +93,11 @@ use Magento\Framework\View\Element\Template;
                 return !this.hasCartItems();
             },
             removeCartItem(event) {
-                const cartItemId = this.$el.getAttribute('data-cart-item');
+                const cartItemId = this.\$el.getAttribute('data-cart-item');
 
-                const ajaxUpdateUrl = '<?= /* @noEscape */ $block->getUrl(
+                const ajaxUpdateUrl = '{$block->getUrl(
                     'checkout/sidebar/removeItem'
-                ) ?>';
+                )}';
 
                 fetch(ajaxUpdateUrl, {
                     method: 'POST',
@@ -110,14 +112,16 @@ use Magento\Framework\View\Element\Template;
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            Alpine.store('LokiLocalStorage').refresh('cart,messages', true);
+                            Alpine.store('LocalStorage').refresh('cart,messages', true);
                         }
 
-                        Alpine.store('LokiMessageStore').addNoticeMessage('<?= $escaper->escapeHtml(
+                        Alpine.store('Message').addNoticeMessage('{$escaper->escapeHtml(
                             __('Removed item')
-                        ) ?>');
+                        )}');
                     });
             }
         }));
     });
-</script>
+SCRIPT;
+?>
+<?= $secureRenderer->renderTag('script', [], $script, false); ?>
