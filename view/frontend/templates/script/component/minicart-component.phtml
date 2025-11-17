@@ -79,9 +79,7 @@ $script = <<<SCRIPT
                 })
                     .then(response => response.json())
                     .then(data => {
-                        if (data.success) {
-                            Alpine.store('LocalStorage').refresh('cart,messages', true);
-                        }
+                        Alpine.store('LocalStorage').refresh('cart,messages', true);
 
                         Alpine.store('Message').addNoticeMessage('{$escaper->escapeHtml(
                             __('Updated quantity')
@@ -107,6 +105,7 @@ $script = <<<SCRIPT
                     'checkout/sidebar/removeItem'
                 )}';
 
+                this.loading = true;
                 fetch(ajaxUpdateUrl, {
                     method: 'POST',
                     headers: {
@@ -119,13 +118,13 @@ $script = <<<SCRIPT
                 })
                     .then(response => response.json())
                     .then(data => {
-                        if (data.success) {
-                            Alpine.store('LocalStorage').refresh('cart,messages', true);
-                        }
+                        Alpine.store('LocalStorage').refresh('cart,messages', true);
 
                         Alpine.store('Message').addNoticeMessage('{$escaper->escapeHtml(
                             __('Removed item')
                         )}');
+
+                        this.loading = false;
                     });
             }
         }));
