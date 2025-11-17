@@ -1,6 +1,6 @@
 {
   "name": "mage-os/module-alpine-minicart",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An Alpine.js implementation of the minicart",
   "type": "magento2-module",
   "require": {

@@ -24,11 +24,19 @@ $script = <<<SCRIPT
                 this.contentVisible = !this.contentVisible;
             },
             getCartSummaryCount() {
+                if (!this.cart) {
+                    return 0;
+                }
+
                 if (this.cart.summary_count > 0) {
                     return this.cart.summary_count;
                 }
             },
             qtyClass() {
+                if (!this.cart) {
+                    return 'empty';
+                }
+
                 return this.cart.summary_count > 0 ? '' : 'empty';
             },
             proceedToCheckout() {
