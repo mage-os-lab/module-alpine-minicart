@@ -1,20 +1,23 @@
 {
-  "name": "mage-os/module-alpine-minicart",
-  "version": "1.0.0",
-  "description": "An Alpine.js implementation of the minicart",
-  "type": "magento2-module",
-  "require": {
-    "magento/framework": "^103.0"
-  },
-  "license": [
-    "OSL-3.0"
-  ],
-  "autoload": {
-    "files": [
-      "registration.php"
+    "name": "mage-os/module-alpine-minicart",
+    "version": "1.0.0",
+    "description": "An Alpine.js implementation of the minicart",
+    "type": "magento2-module",
+    "require": {
+        "magento/framework": "^103.0",
+        "mage-os/module-alpine-loader": "*",
+        "mage-os/module-alpine-local-storage": "*",
+        "mage-os/module-alpine-messages": "*"
+    },
+    "license": [
+        "OSL-3.0"
     ],
-    "psr-4": {
-      "MageOS\\AlpineMinicart\\": ""
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MageOS\\AlpineMinicart\\": ""
+        }
     }
-  }
 }
