@@ -74,7 +74,7 @@ $script = <<<SCRIPT
                     body: new URLSearchParams({
                         'item_id': cartItemId,
                         'item_qty': cartItemQty,
-                        'form_key': window.LOKI_FORM_KEY
+                        'form_key': window.FORM_KEY
                     })
                 })
                     .then(response => response.json())
@@ -113,7 +113,7 @@ $script = <<<SCRIPT
                     },
                     body: new URLSearchParams({
                         'item_id': cartItemId,
-                        'form_key': window.LOKI_FORM_KEY
+                        'form_key': window.FORM_KEY
                     })
                 })
                     .then(response => response.json())
