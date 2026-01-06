@@ -81,7 +81,7 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
 
                 <div class="minicart-items-wrapper">
                     <ol id="mini-cart" class="minicart-items">
-                        <template x-for="item in cart.items">
+                        <template x-for="item in getCartItems">
                             <li class="item product product-item odd last"
                                 data-role="product-item">
                                 <div class="product">
@@ -178,6 +178,14 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
                             </li>
                         </template>
                     </ol>
+
+                    <button @click.prevent="showMin" x-cloak x-show="showMinButton">
+                        <?= $escaper->escapeHtml(__('Do not show all items')) ?>
+                    </button>
+
+                    <button @click.prevent="showMax" x-cloak x-show="showMaxButton">
+                        <?= $escaper->escapeHtml(__('Show all items')) ?>
+                    </button>
                 </div>
 
                 <div class="actions">
@@ -192,6 +200,7 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
                 </div>
 
                 <div id="minicart-widgets" class="minicart-widgets">
+                    <?= $block->getChildHtml('minicart.widgets') ?>
                 </div>
             </div>
         </div>

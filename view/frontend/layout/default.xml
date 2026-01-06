@@ -3,14 +3,22 @@
       xsi:noNamespaceSchemaLocation="urn:magento:module:View/Layout:etc/page_configuration.xsd">
     <body>
         <referenceBlock name="minicart" template="MageOS_AlpineMinicart::cart/minicart.phtml">
-            <block name="minicart.content" as="content" template="MageOS_AlpineMinicart::cart/minicart/content.phtml"/>
+            <block name="minicart.content" as="content" template="MageOS_AlpineMinicart::cart/minicart/content.phtml">
+                <arguments>
+                    <argument name="minicart" xsi:type="object">MageOS\AlpineMinicart\ViewModel\Minicart</argument>
+                </arguments>
+            </block>
         </referenceBlock>
 
         <referenceContainer name="alpine-js.component">
             <block
                 name="alpine-js.component.minicart"
                 template="MageOS_AlpineMinicart::script/component/minicart-component.phtml"
-            />
+            >
+                <arguments>
+                    <argument name="minicart" xsi:type="object">MageOS\AlpineMinicart\ViewModel\Minicart</argument>
+                </arguments>
+            </block>
         </referenceContainer>
     </body>
 </page>

@@ -4,15 +4,23 @@ declare(strict_types=1);
 use Magento\Framework\Escaper;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Helper\SecureHtmlRenderer;
+use MageOS\AlpineMinicart\ViewModel\Minicart;
 
 /** @var Template $block */
 /** @var Escaper $escaper */
 /** @var SecureHtmlRenderer $secureRenderer */
+/** @var Minicart $minicart */
+$minicart = $block->getMinicart();
+$count = (int)$minicart->count();
+$maxItemsDisplayCount = (int)$minicart->maxItemsDisplayCount();
 
 $script = <<<SCRIPT
     document.addEventListener('alpine:init', () => {
         Alpine.data('MiniCart', () => ({
             cart: {},
+            maxItemsDisplayCount: {$maxItemsDisplayCount},
+            minItemsDisplayCount: {$count},
+            count: {$count},
             loading: false,
             contentVisible: false,
             init() {
@@ -46,6 +54,29 @@ $script = <<<SCRIPT
                 window.location = '{$block->getUrl(
                     'checkout'
                 )}';
+            },
+            getCartItems() {
+                return this.cart.items.slice(0, this.getCount());
+            },
+            getCount() {
+                if (this.count > this.maxItemsDisplayCount) {
+                    this.count = this.maxItemsDisplayCount;
+                    return this.maxItemsDisplayCount;
+                }
+
+                return this.count;
+            },
+            showMaxButton() {
+                return this.getCount() < this.maxItemsDisplayCount;
+            },
+            showMax() {
+                this.count = this.maxItemsDisplayCount;
+            },
+            showMinButton() {
+                return this.getCount() === this.maxItemsDisplayCount;
+            },
+            showMin() {
+                this.count = this.minItemsDisplayCount;
             },
             toggleCartItemButton() {
                 const cartItemOriginalQty = parseInt(this.\$el.getAttribute('data-cart-item-qty'));
