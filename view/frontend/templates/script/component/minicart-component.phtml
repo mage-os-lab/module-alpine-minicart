@@ -39,6 +39,9 @@ $script = <<<SCRIPT
 
                 return this.cart.summary_count > 0 ? '' : 'empty';
             },
+            anchorClass() {
+                return (this.loading) ? 'loading' : '';
+            },
             proceedToCheckout() {
                 window.location = '{$block->getUrl(
                     'checkout'

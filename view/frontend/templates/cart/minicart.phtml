@@ -8,14 +8,22 @@ use Magento\Framework\View\Helper\SecureHtmlRenderer;
 /** @var Sidebar $block */
 /** @var Escaper $escaper */
 /** @var SecureHtmlRenderer $secureRenderer */
+
+$loaderImage = $block->getViewFileUrl('images/loader-1.gif');
 ?>
 
 <div class="minicart-wrapper" x-data="MiniCart">
     <a
         class="action showcart"
+        :class="anchorClass"
         href="<?= $escaper->escapeUrl($block->getShoppingCartUrl()) ?>"
         @click.prevent="toggleContentVisible"
     >
+        <div x-cloak x-show="loading" class="inline-loader">
+            <img src="<?= $escaper->escapeHtml($loaderImage) ?>"
+                 alt="<?= $escaper->escapeHtml('Loading...') ?>">
+        </div>
+
         <span class="text"><?= $block->escapeHtml(__('My Cart')) ?></span>
         <span class="counter qty" :class="qtyClass">
             <span class="counter-number" x-html="getCartSummaryCount"></span>
@@ -33,5 +41,28 @@ use Magento\Framework\View\Helper\SecureHtmlRenderer;
 <style>
     .minicart-wrapper .block-minicart {
         display: block; // @todo: Move this to LESS
+    }
+
+    .minicart-wrapper .inline-loader {
+        text-align: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+
+    .minicart-wrapper .inline-loader img {
+        width: 30px;
+    }
+
+    .minicart-wrapper .action.showcart.loading .counter.qty {
+        opacity: 0.1;
+    }
+
+    .minicart-wrapper .action.showcart .counter.qty.empty {
+        display: inline-block !important;
+        background: transparent !important;
+        color: transparent !important;
     }
 </style>
