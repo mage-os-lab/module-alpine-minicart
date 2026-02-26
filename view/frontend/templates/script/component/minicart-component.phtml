@@ -24,8 +24,8 @@ $script = <<<SCRIPT
             loading: false,
             contentVisible: false,
             init() {
-                Alpine.effect(() => {
-                    this.cart = Alpine.store('LocalStorage').get('cart');
+                Alpine.effect(async () => {
+                    this.cart = await Alpine.store('LocalStorage').get('cart');
                 });
             },
             toggleContentVisible() {
