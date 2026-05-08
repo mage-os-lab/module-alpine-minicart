@@ -8,7 +8,8 @@ document.addEventListener('alpine:init', () => {
         contentVisible: false,
         init() {
             Alpine.effect(async () => {
-                this.cart = await Alpine.store('LocalStorage').get('cart');
+                const cartSection = await Alpine.store('LocalStorage').get('cart');
+                this.cart = cartSection.cart;
             });
         },
         toggleContentVisible() {
