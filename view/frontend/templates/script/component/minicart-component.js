@@ -8,8 +8,7 @@ document.addEventListener('alpine:init', () => {
         contentVisible: false,
         init() {
             Alpine.effect(async () => {
-                const cartSection = await Alpine.store('LocalStorage').get('cart');
-                this.cart = cartSection.cart;
+                this.cart = await Alpine.store('LocalStorage').get('cart');
             });
         },
         toggleContentVisible() {
@@ -93,8 +92,7 @@ document.addEventListener('alpine:init', () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    Alpine.store('LocalStorage').refresh('cart,messages', true);
-
+                    Alpine.store('LocalStorage').refresh(['cart','messages'], true);
                     Alpine.store('Message').addNoticeMessage(ALPINE_MINICART_MESSAGE_UPDATED_QTY);
 
                     this.loading = false;
@@ -129,7 +127,7 @@ document.addEventListener('alpine:init', () => {
             })
                 .then(response => response.json())
                 .then(data => {
-                    Alpine.store('LocalStorage').refresh('cart,messages', true);
+                    Alpine.store('LocalStorage').refresh(['cart','messages'], true);
                     Alpine.store('Message').addNoticeMessage(ALPINE_MINICART_MESSAGE_REMOVED_ITEM);
                     this.loading = false;
                 });
