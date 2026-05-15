@@ -14,14 +14,15 @@ document.addEventListener('alpine:init', () => {
         toggleContentVisible() {
             this.contentVisible = !this.contentVisible;
         },
+        showCartSummaryCount() {
+            return this.cart && this.cart.summary_count;
+        },
         getCartSummaryCount() {
-            if (!this.cart) {
-                return 0;
+            if (!this.cart || !this.cart.summary_count) {
+                return '';
             }
 
-            if (this.cart.summary_count > 0) {
-                return this.cart.summary_count;
-            }
+            return this.cart.summary_count;
         },
         qtyClass() {
             if (!this.cart) {
