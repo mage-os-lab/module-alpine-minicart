@@ -35,13 +35,13 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
                         class="qty"
                         :class="qtyClass"
                         title="<?= $escaper->escapeHtml(__('Items in Cart')) ?>"
-                        x-html="cart.summary_count">0</span>
+                        x-text="cart.summary_count">0</span>
                 </strong>
             </div>
 
             <div class="block-content">
                 <div class="items-total">
-                    <span class="count" x-html="cart.summary_count">0</span>
+                    <span class="count" x-text="cart.summary_count">0</span>
                     <span><?= $escaper->escapeHtml(
                             __('Items in Cart')
                         ) ?></span>
@@ -54,7 +54,7 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
 
                     <div class="amount price-container">
                 <span class="price-wrapper">
-                    <span class="price" x-html="cart.subtotal">-</span>
+                    <span class="price" x-text="cart.subtotal">-</span>
                 </span>
                     </div>
                 </div>
@@ -104,14 +104,14 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
                                         <strong class="product-item-name">
                                             <a
                                                 :href="item.product_url"
-                                                x-html="item.product_name"
+                                                x-text="item.product_name"
                                             ></a>
                                         </strong>
 
                                         <div class="product-item-pricing">
                                             <div class="price-container">
                                                 <span class="price-wrapper"
-                                                      x-html="item.product_price"></span>
+                                                      x-text="item.product_price"></span>
                                             </div>
 
                                             <div class="details-qty qty">

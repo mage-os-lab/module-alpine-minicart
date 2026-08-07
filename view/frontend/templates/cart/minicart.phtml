@@ -28,7 +28,7 @@ $loaderImage = $block->getViewFileUrl('images/loader-1.gif');
 
         <template x-if="showCartSummaryCount">
             <span class="counter qty" :class="qtyClass">
-                <span class="counter-number" x-html="getCartSummaryCount"></span>
+                <span class="counter-number" x-text="getCartSummaryCount"></span>
                 <span class="counter-label"></span>
             </span>
         </template>
