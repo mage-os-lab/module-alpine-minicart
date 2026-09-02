@@ -7,7 +7,8 @@
         "magento/framework": "^103.0",
         "mage-os/module-alpine-loader": "*",
         "mage-os/module-alpine-local-storage": "*",
-        "mage-os/module-alpine-messages": "*"
+        "mage-os/module-alpine-messages": "*",
+        "php": ">=8.2 <8.6"
     },
     "license": [
         "OSL-3.0"
