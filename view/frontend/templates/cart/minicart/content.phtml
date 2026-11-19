@@ -35,7 +35,7 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
                         class="qty"
                         :class="qtyClass"
                         title="<?= $escaper->escapeHtml(__('Items in Cart')) ?>"
-                        x-text="cart.summary_count">0</span>
+                        x-html="cart.summary_count">0</span>
                 </strong>
             </div>
 
@@ -54,7 +54,7 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
 
                     <div class="amount price-container">
                 <span class="price-wrapper">
-                    <span class="price" x-text="cart.subtotal">-</span>
+                    <span class="price" x-html="cart.subtotal">-</span>
                 </span>
                     </div>
                 </div>
@@ -111,7 +111,7 @@ $loaderImage = $block->getViewFileUrl('images/loader-2.gif');
                                         <div class="product-item-pricing">
                                             <div class="price-container">
                                                 <span class="price-wrapper"
-                                                      x-text="item.product_price"></span>
+                                                      x-html="item.product_price"></span>
                                             </div>
 
                                             <div class="details-qty qty">
